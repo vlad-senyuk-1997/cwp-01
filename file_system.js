@@ -2,7 +2,6 @@
  * Created by vlads on 06.09.2018.
  */
 
-
 const url = process.argv[2];
 const fs = require("fs");
 const path = require('path');
@@ -23,10 +22,7 @@ fs.readdir(dir, function(err, list) {
         file = path.resolve(dir, file);
 
         fs.stat(file, function(err, stat){
-            // If directory, execute a recursive call
             if (stat && stat.isDirectory()) {
-                // Add directory to array [comment if you need to remove the directories from the array]
-                //results.push(file);
                 results.push(path.relative("${url}", file));
 
                 filewalker(file, function(err, res){
@@ -34,16 +30,13 @@ fs.readdir(dir, function(err, list) {
                     if (!--pending) done(null, results);
                 });
             } else {
-                //results.push(file);
                 results.push(path.relative("${url}", file));
-
                 if (!--pending) done(null, results);
             }
         });
     });
 });
 };
-
 
 filewalker("${url}", function(err, data){
     if(err){
@@ -56,5 +49,7 @@ filewalker("${url}", function(err, data){
 fs.writeFile(url + "/summary.js", scriptString, function(error){
  if(error) throw error;
 });
+
+
 
 
