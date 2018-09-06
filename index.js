@@ -2,4 +2,6 @@
  * Created by vlads on 06.09.2018.
  */
 
-console.log('Hello World');
+const name = process.argv[2];
+
+console.log(`Hi ${name}!`);
